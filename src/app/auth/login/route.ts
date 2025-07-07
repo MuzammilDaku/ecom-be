@@ -3,6 +3,7 @@ import { jsonResponse } from "@/lib/helpers/jsonResponse";
 import { User } from "@/lib/models/users";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 
 export const POST = async (req: NextRequest) => {
@@ -23,10 +24,11 @@ export const POST = async (req: NextRequest) => {
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password)
+        const token = await jwt.sign({_id:user._id},"IAMMUZAMMILABBAS",{expiresIn:'12h'})
         if(isPasswordValid) {
             return jsonResponse({
                 success:true,
-                token:'',
+                token:token,
                 user
             },200)
         }
