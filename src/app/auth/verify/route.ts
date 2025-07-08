@@ -1,11 +1,20 @@
 import dbConn from "@/lib/db";
 import { jsonResponse } from "@/lib/helpers/jsonResponse";
 import { User } from "@/lib/models/users";
-import { NextRequest, NextResponse } from "next/server";
-import bcrypt from 'bcrypt'
-import { Jwt} from "jsonwebtoken";
+import { NextRequest } from "next/server";
 import jwt from 'jsonwebtoken'
 
+
+export async function OPTIONS(request: NextRequest) {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+} 
 
 export const POST = async (req: NextRequest) => {
     try {
