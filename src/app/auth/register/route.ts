@@ -5,6 +5,18 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcrypt'
 
 
+export async function OPTIONS(request: NextRequest) {
+  return new Response(null, {
+    status: 200,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+      "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    },
+  });
+}
+
+
 export const POST = async (req: NextRequest) => {
     try {
         await dbConn();
